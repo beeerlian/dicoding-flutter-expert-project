@@ -18,14 +18,16 @@ void main() {
   late MovieRepositoryImpl repository;
   late MockMovieRemoteDataSource mockRemoteDataSource;
   late MockMovieLocalDataSource mockLocalDataSource;
+  late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
+    mockNetworkInfo = MockNetworkInfo();
     mockRemoteDataSource = MockMovieRemoteDataSource();
     mockLocalDataSource = MockMovieLocalDataSource();
     repository = MovieRepositoryImpl(
-      remoteDataSource: mockRemoteDataSource,
-      localDataSource: mockLocalDataSource,
-    );
+        remoteDataSource: mockRemoteDataSource,
+        localDataSource: mockLocalDataSource,
+        networkInfo: mockNetworkInfo);
   });
 
   final tMovieModel = MovieModel(
@@ -66,6 +68,20 @@ void main() {
   final tMovieList = <Movie>[tMovie];
 
   group('Now Playing Movies', () {
+    setUp(() {
+      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+    });
+    test('Should check is the device online', () async {
+      //arrange
+      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(mockRemoteDataSource.getNowPlayingMovies())
+          .thenAnswer((_) async => []);
+      //act
+      await repository.getNowPlayingMovies();
+      //assert
+      verify(mockNetworkInfo.isConnected);
+    });
+
     test(
         'should return remote data when the call to remote data source is successful',
         () async {
@@ -81,6 +97,18 @@ void main() {
       expect(resultList, tMovieList);
     });
 
+    test(
+        'Should cache data locally when the call to remote data source is successful',
+        () async {
+      //arrange
+      when(mockRemoteDataSource.getNowPlayingMovies())
+          .thenAnswer((_) async => tMovieModelList);
+      //act
+      await repository.getNowPlayingMovies();
+      //assert
+      verify(mockRemoteDataSource.getNowPlayingMovies());
+      verify(mockLocalDataSource.cacheNowPlayingMovies([testMovieCache]));
+    });
     test(
         'should return server failure when the call to remote data source is unsuccessful',
         () async {
