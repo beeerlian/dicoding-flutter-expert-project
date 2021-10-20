@@ -2,6 +2,9 @@ import 'package:ditonton/features/movie/data/models/movie_table.dart';
 import 'package:ditonton/features/movie/domain/entities/genre.dart';
 import 'package:ditonton/features/movie/domain/entities/movie.dart';
 import 'package:ditonton/features/movie/domain/entities/movie_detail.dart';
+import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
+import 'package:ditonton/features/tvshow/domain/entities/tvshow_detail.dart';
+import 'package:ditonton/features/tvshow/domain/entities/tvshow_genre.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -79,4 +82,36 @@ final testMovieFromCache = Movie.watchlist(
       'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
   posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
   title: 'Spider-Man',
+);
+
+// TvShow Dummy Object--------------------------------------------------------------------
+
+final testTvShow = TvShow(
+  id: 1,
+  backdropPath: "backdropPath",
+  voteAverage: 2.0,
+  overview: "overview",
+  firstAirDate: "firstAirDate",
+  originCountry: ["originCountry"],
+  genreIds: [1, 2],
+  originalLanguage: "originalLanguage",
+  voteCount: 24,
+  name: "name",
+  originalName: "originalName",
+);
+
+final testTvShowList = [testTvShow];
+
+final testTvShowDetail = TvShowDetail(
+  id: 1,
+  backdropPath: "backdropPath",
+  voteAverage: 2.0,
+  overview: "overview",
+  firstAirDate: "firstAirDate",
+  originCountry: ["originCountry"],
+  genres: [TvShowGenre(id: 1, name: "genre name")],
+  originalLanguage: "originalLanguage",
+  voteCount: 24,
+  name: "name",
+  originalName: "originalName",
 );

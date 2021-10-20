@@ -1,3 +1,4 @@
+import 'package:ditonton/features/tvshow/domain/entities/tvshow_genre.dart';
 import 'package:equatable/equatable.dart';
 
 class TvShowDetail extends Equatable {
@@ -8,7 +9,7 @@ class TvShowDetail extends Equatable {
     required this.overview,
     required this.firstAirDate,
     required this.originCountry,
-    required this.genreIds,
+    required this.genres,
     required this.originalLanguage,
     required this.voteCount,
     required this.name,
@@ -23,7 +24,7 @@ class TvShowDetail extends Equatable {
   String? overview;
   String? firstAirDate;
   List<String>? originCountry;
-  List<int>? genreIds;
+  List<TvShowGenre>? genres;
   String? originalLanguage;
   int? voteCount;
   String? name;
@@ -43,6 +44,6 @@ class TvShowDetail extends Equatable {
         originalLanguage,
         originalName,
         name,
-        genreIds
+        genres
       ];
 }
