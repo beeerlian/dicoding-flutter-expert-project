@@ -2,6 +2,7 @@ import 'package:ditonton/features/movie/data/models/movie_table.dart';
 import 'package:ditonton/features/movie/domain/entities/genre.dart';
 import 'package:ditonton/features/movie/domain/entities/movie.dart';
 import 'package:ditonton/features/movie/domain/entities/movie_detail.dart';
+import 'package:ditonton/features/tvshow/data/models/tvshow_table.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow_detail.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow_genre.dart';
@@ -88,6 +89,7 @@ final testMovieFromCache = Movie.watchlist(
 
 final testTvShow = TvShow(
   id: 1,
+  posterPath: "posterPath",
   backdropPath: "backdropPath",
   voteAverage: 2.0,
   overview: "overview",
@@ -103,6 +105,7 @@ final testTvShow = TvShow(
 final testTvShowList = [testTvShow];
 
 final testTvShowDetail = TvShowDetail(
+  posterPath: "posterpath.jpg",
   id: 1,
   backdropPath: "backdropPath",
   voteAverage: 2.0,
@@ -114,4 +117,25 @@ final testTvShowDetail = TvShowDetail(
   voteCount: 24,
   name: "name",
   originalName: "originalName",
+);
+
+final testTvShowTable = TvShowTable(
+  id: 1,
+  name: "name",
+  posterPath: "posterPath",
+  overview: "overview",
+);
+
+final testTvShowMap = {
+  'id': 1,
+  'overview': 'overview',
+  'posterPath': 'posterPath',
+  'name': 'name',
+};
+
+final testTvShowCache = TvShowTable(
+  id: 1,
+  name: "name",
+  posterPath: "posterPath",
+  overview: "overview",
 );

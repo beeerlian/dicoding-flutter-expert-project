@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class TvShowDetail extends Equatable {
   TvShowDetail({
+    required this.posterPath,
     required this.id,
     required this.backdropPath,
     required this.voteAverage,

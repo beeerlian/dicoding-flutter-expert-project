@@ -8,12 +8,12 @@ abstract class TvShowRepository {
   Future<Either<Failure, List<TvShow>>> getPopularTvShow();
   Future<Either<Failure, List<TvShow>>> getTopRatedTvShow();
   Future<Either<Failure, TvShowDetail>> getTvShowDetail(int id);
-  Future<Either<Failure, List<TvShow>>> getTvShowRecommendation();
-  Future<Either<Failure, List<TvShow>>> searchTvShows(String query);
-  Future<Either<Failure, List<TvShow>>> saveTvShowWatchList(
+  Future<Either<Failure, List<TvShow>>> getTvShowRecommendation(int id);
+  Future<Either<Failure, List<TvShow>>> searchTvShow(String query);
+  Future<Either<Failure, String>> saveTvShowWatchList(
       TvShowDetail tvShow);
-  Future<Either<Failure, List<TvShow>>> removeTvShowWatchList(
+  Future<Either<Failure, String>> removeTvShowWatchList(
       TvShowDetail tvShow);
-  Future<bool> getWatchListStatus(int id);
+  Future<bool> getTvShowWatchListStatus(int id);
   Future<Either<Failure, List<TvShow>>> getWatchListTvShow();
 }

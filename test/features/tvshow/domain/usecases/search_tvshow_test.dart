@@ -1,30 +1,30 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
-import 'package:ditonton/features/tvshow/domain/usecases/get_tvshow_recommendation.dart';
+import 'package:ditonton/features/tvshow/domain/repositories/tvshow_repository.dart';
+import 'package:ditonton/features/tvshow/domain/usecases/search_tvshow.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-
 import '../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTvShowRepository mockTvShowRepository;
-  late GetTvShowRecommendation usecase;
+  late SearchTvShow usecase;
 
   setUp(() {
     mockTvShowRepository = MockTvShowRepository();
-    usecase = GetTvShowRecommendation(mockTvShowRepository);
+    usecase = SearchTvShow(mockTvShowRepository);
   });
 
   final tTvShows = <TvShow>[];
-  final tId = 1;
+  final tQuery = 'query';
   test(
-      'should get list of tvshow recommendation from repository when execute function is called',
+      'should get list of searched tvshow when the execute function is called ',
       () async {
-    //arrange
-    when(mockTvShowRepository.getTvShowRecommendation(tId))
+    //arrage
+    when(mockTvShowRepository.searchTvShow(tQuery))
         .thenAnswer((_) async => Right(tTvShows));
     //act
-    final result = await usecase.execute(tId);
+    final result = await usecase.execute(tQuery);
     //assert
     expect(result, Right(tTvShows));
   });
