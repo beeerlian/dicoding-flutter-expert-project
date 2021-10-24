@@ -9,7 +9,6 @@ import 'package:ditonton/features/movie/presentation/pages/top_rated_movies_page
 import 'package:ditonton/features/movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/features/movie/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +138,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         ),
       ),
     );
+  
   }
 
   Row _buildSubHeading({required String title, required Function() onTap}) {

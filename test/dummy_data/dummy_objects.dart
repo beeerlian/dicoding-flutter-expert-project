@@ -139,3 +139,10 @@ final testTvShowCache = TvShowTable(
   posterPath: "posterPath",
   overview: "overview",
 );
+
+final testWatchlistTvShow = TvShow.watchlist(
+  id: 1,
+  posterPath: "posterPath",
+  overview: "overview",
+  name: "name",
+);
