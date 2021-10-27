@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/features/movie/domain/entities/movie.dart';
-import 'package:ditonton/features/movie/domain/usecases/search_movies.dart';
-import 'package:ditonton/features/movie/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton/features/movies/domain/entities/movie.dart';
+import 'package:ditonton/features/movies/domain/usecases/search_movies.dart';
+import 'package:ditonton/features/movies/presentation/provider/movie_search_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

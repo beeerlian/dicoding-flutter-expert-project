@@ -6,10 +6,10 @@ import 'dart:async' as _i6;
 import 'dart:ui' as _i7;
 
 import 'package:ditonton/common/state_enum.dart' as _i4;
-import 'package:ditonton/features/movie/domain/entities/movie.dart' as _i5;
-import 'package:ditonton/features/movie/domain/usecases/get_top_rated_movies.dart'
+import 'package:ditonton/features/movies/domain/entities/movie.dart' as _i5;
+import 'package:ditonton/features/movies/domain/usecases/get_top_rated_movies.dart'
     as _i2;
-import 'package:ditonton/features/movie/presentation/provider/top_rated_movies_notifier.dart'
+import 'package:ditonton/features/movies/presentation/provider/top_rated_movies_notifier.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 

@@ -14,11 +14,11 @@ class TvShowCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            TvShowDetailPage.ROUTE_NAME,
-            arguments: tvShow.id,
-          );
+          // Navigator.pushNamed(
+          //   context,
+          //   TvShowDetailPage.ROUTE_NAME,
+          //   arguments: tvShow.id,
+          // );
         },
         child: Stack(
           alignment: Alignment.bottomLeft,

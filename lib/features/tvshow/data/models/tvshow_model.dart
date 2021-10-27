@@ -36,14 +36,14 @@ class TvShowModel extends Equatable {
         posterPath: json["poster_path"],
         id: json["id"],
         backdropPath: json["backdrop_path"],
-        voteAverage: json["vote_average"],
+        voteAverage: (json["vote_average"]).toDouble(),
         overview: json["overview"],
         firstAirDate: json["first_air_date"].toString(),
-        originCountry: List<String>.from(
-            (json["origin_country"] as List).map((e) => e)).toList(),
-        genreIds:
-            List<int>.from((json["genre_ids"] as List).map((e) => e))
+        originCountry:
+            List<String>.from((json["origin_country"] as List).map((e) => e))
                 .toList(),
+        genreIds:
+            List<int>.from((json["genre_ids"] as List).map((e) => e)).toList(),
         originalLanguage: json["original_language"],
         voteCount: json["vote_count"],
         name: json["name"],
@@ -53,7 +53,7 @@ class TvShowModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       "id": id,
-      "poster_path" : posterPath,
+      "poster_path": posterPath,
       "backdrop_path": backdropPath,
       "vote_average": voteAverage,
       "overview": overview,
@@ -70,7 +70,7 @@ class TvShowModel extends Equatable {
   TvShow toEntity() {
     return TvShow(
         id: id,
-        posterPath : posterPath,
+        posterPath: posterPath,
         backdropPath: backdropPath,
         voteAverage: voteAverage,
         overview: overview,

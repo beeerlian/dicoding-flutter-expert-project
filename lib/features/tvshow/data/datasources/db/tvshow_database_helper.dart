@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:ditonton/features/tvshow/data/models/tvshow_table.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:hive/hive.dart';
 
 class TvShowDatabaseHelper {
   static TvShowDatabaseHelper? _databaseHelper;
@@ -9,7 +11,8 @@ class TvShowDatabaseHelper {
     _databaseHelper = this;
   }
 
-  factory TvShowDatabaseHelper() => _databaseHelper ?? TvShowDatabaseHelper._instance();
+  factory TvShowDatabaseHelper() =>
+      _databaseHelper ?? TvShowDatabaseHelper._instance();
 
   static Database? _database;
 
@@ -25,8 +28,7 @@ class TvShowDatabaseHelper {
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
-    final databasePath = '$path/ditonton_tvshow.db';
-
+    final databasePath = '$path/ditonton.db';
     var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
     return db;
   }
@@ -41,6 +43,7 @@ class TvShowDatabaseHelper {
       );
     ''');
   }
+
   Future<void> insertCacheTransaction(
       List<TvShowTable> tvShows, String category) async {
     final db = await database;
@@ -52,6 +55,7 @@ class TvShowDatabaseHelper {
       }
     });
   }
+
   Future<List<Map<String, dynamic>>> getCacheMovies(String category) async {
     final db = await database;
     final List<Map<String, dynamic>> results = await db!.query(
@@ -71,7 +75,7 @@ class TvShowDatabaseHelper {
       whereArgs: [category],
     );
   }
-  
+
   Future<int> insertWatchlist(TvShowTable tvShow) async {
     final db = await database;
     return await db!.insert(_tblWatchlist, tvShow.toJson());
