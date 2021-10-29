@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TvShowSearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search';
+  static const ROUTE_NAME = '/search-tvshow';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search'),
+        title: Text('Search TvShow'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

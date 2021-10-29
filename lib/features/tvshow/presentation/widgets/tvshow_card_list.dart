@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
+import 'package:ditonton/features/tvshow/presentation/pages/tvshow_detail_page.dart';
 import 'package:flutter/material.dart';
 
 class TvShowCard extends StatelessWidget {
@@ -14,11 +15,11 @@ class TvShowCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          // Navigator.pushNamed(
-          //   context,
-          //   TvShowDetailPage.ROUTE_NAME,
-          //   arguments: tvShow.id,
-          // );
+          Navigator.pushNamed(
+            context,
+            TvShowDetailPage.ROUTE_NAME,
+            arguments: tvShow.id,
+          );
         },
         child: Stack(
           alignment: Alignment.bottomLeft,

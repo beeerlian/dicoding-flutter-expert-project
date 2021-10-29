@@ -1,7 +1,7 @@
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/features/movies/data/datasources/db/database_helper.dart';
 import 'package:ditonton/features/tvshow/data/models/tvshow_table.dart';
 
-import 'db/tvshow_database_helper.dart';
 
 abstract class TvShowLocalDataSource {
   Future<String> insertWatchlist(TvShowTable tvShow);
@@ -13,19 +13,19 @@ abstract class TvShowLocalDataSource {
 }
 
 class TvShowLocalDataSourceImpl implements TvShowLocalDataSource {
-  final TvShowDatabaseHelper databaseHelper;
+  final DatabaseHelper databaseHelper;
 
   TvShowLocalDataSourceImpl(this.databaseHelper);
 
   @override
   Future<void> cacheNowPlayingTvShows(List<TvShowTable> tvShows) async {
-    await databaseHelper.clearCache('now playing');
-    await databaseHelper.insertCacheTransaction(tvShows, 'now playing');
+    await databaseHelper.clearCacheTvShow('now playing');
+    await databaseHelper.insertCacheTransactionTvShow(tvShows, 'now playing');
   }
 
   @override
   Future<List<TvShowTable>> getCachedNowPlayingTvShows() async {
-    final result = await databaseHelper.getCacheMovies('now playing');
+    final result = await databaseHelper.getCacheTvShow('now playing');
     if (result.length > 0) {
       return result.map((data) => TvShowTable.fromMap(data)).toList();
     } else {
@@ -52,7 +52,7 @@ class TvShowLocalDataSourceImpl implements TvShowLocalDataSource {
   @override
   Future<String> insertWatchlist(TvShowTable tvShow) async {
     try {
-      await databaseHelper.insertWatchlist(tvShow);
+      await databaseHelper.insertWatchlistTvShow(tvShow);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -62,7 +62,7 @@ class TvShowLocalDataSourceImpl implements TvShowLocalDataSource {
   @override
   Future<String> removeWatchlist(TvShowTable tvShow) async {
     try {
-      await databaseHelper.removeWatchlist(tvShow);
+      await databaseHelper.removeWatchlistTvShow(tvShow);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());

@@ -18,7 +18,6 @@ import 'package:ditonton/features/movies/presentation/provider/movie_search_noti
 import 'package:ditonton/features/movies/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/features/movies/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:ditonton/features/movies/presentation/provider/watchlist_movie_notifier.dart';
-import 'package:ditonton/features/tvshow/data/datasources/db/tvshow_database_helper.dart';
 import 'package:ditonton/features/tvshow/data/datasources/local_tvshow_datasource.dart';
 import 'package:ditonton/features/tvshow/data/datasources/remote_tvshow_datasource.dart';
 import 'package:ditonton/features/tvshow/data/repositories/tvshow_repository_impl.dart';
@@ -166,8 +165,6 @@ void init() {
 
   // tvshow & movies db helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
-  locator.registerLazySingleton<TvShowDatabaseHelper>(
-      () => TvShowDatabaseHelper());
 
   // external
   locator.registerLazySingleton(() => http.Client());

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:ditonton/features/movies/data/models/movie_table.dart';
+import 'package:ditonton/features/tvshow/data/models/tvshow_table.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -22,6 +23,8 @@ class DatabaseHelper {
 
   static const String _tblWatchlist = 'watchlist';
   static const String _tblCache = 'cache';
+  static const String _tblWatchlistTvShow = 'tvshow_watchlist';
+  static const String _tblCacheTvShow = 'tvshow_cache';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -36,6 +39,7 @@ class DatabaseHelper {
       CREATE TABLE  $_tblWatchlist (
         id INTEGER PRIMARY KEY,
         title TEXT,
+        name TEXT,
         overview TEXT,
         posterPath TEXT
       );
@@ -44,6 +48,26 @@ class DatabaseHelper {
       CREATE TABLE  $_tblCache (
         id INTEGER PRIMARY KEY,
         title TEXT,
+        name TEXT,
+        overview TEXT,
+        posterPath TEXT,
+        category TEXT
+      );
+    ''');
+    await db.execute('''
+      CREATE TABLE  $_tblWatchlistTvShow (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        name TEXT,
+        overview TEXT,
+        posterPath TEXT
+      );
+    ''');
+    await db.execute('''
+      CREATE TABLE  $_tblCacheTvShow (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        name TEXT,
         overview TEXT,
         posterPath TEXT,
         category TEXT
@@ -118,4 +142,74 @@ class DatabaseHelper {
 
     return results;
   }
+
+  //------------------------- TvShows --------------------------------------------------//
+    Future<void> insertCacheTransactionTvShow(
+      List<TvShowTable> tvShows, String category) async {
+    final db = await database;
+    db!.transaction((txn) async {
+      for (final tvShow in tvShows) {
+        final tvshowJson = tvShow.toJson();
+        tvshowJson['category'] = category;
+        txn.insert(_tblCacheTvShow, tvshowJson);
+      }
+    });
+  }
+
+  Future<List<Map<String, dynamic>>> getCacheTvShow(String category) async {
+    final db = await database;
+    final List<Map<String, dynamic>> results = await db!.query(
+      _tblCacheTvShow,
+      where: 'category = ?',
+      whereArgs: [category],
+    );
+
+    return results;
+  }
+
+  Future<int> clearCacheTvShow(String category) async {
+    final db = await database;
+    return await db!.delete(
+      _tblCacheTvShow,
+      where: 'category = ?',
+      whereArgs: [category],
+    );
+  }
+
+  Future<int> insertWatchlistTvShow(TvShowTable tvShow) async {
+    final db = await database;
+    return await db!.insert(_tblWatchlistTvShow, tvShow.toJson());
+  }
+
+  Future<int> removeWatchlistTvShow(TvShowTable tvShow) async {
+    final db = await database;
+    return await db!.delete(
+      _tblWatchlistTvShow,
+      where: 'id = ?',
+      whereArgs: [tvShow.id],
+    );
+  }
+
+  Future<Map<String, dynamic>?> getTvShowById(int id) async {
+    final db = await database;
+    final results = await db!.query(
+      _tblWatchlistTvShow,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (results.isNotEmpty) {
+      return results.first;
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getWatchlistTvShows() async {
+    final db = await database;
+    final List<Map<String, dynamic>> results = await db!.query(_tblWatchlistTvShow);
+
+    return results;
+  }
+
 }

@@ -49,9 +49,9 @@ class TvShowListNotifier extends ChangeNotifier {
         _message = failure.message;
         notifyListeners();
       },
-      (TvShowsData) {
+      (tvShowsData) {
         _nowPlayingState = RequestState.Loaded;
-        _nowPlayingTvShow = TvShowsData;
+        _nowPlayingTvShow = tvShowsData;
         notifyListeners();
       },
     );
@@ -68,9 +68,9 @@ class TvShowListNotifier extends ChangeNotifier {
         _message = failure.message;
         notifyListeners();
       },
-      (TvShowsData) {
+      (tvShowsData) {
         _popularTvShowsState = RequestState.Loaded;
-        _popularTvShows = TvShowsData;
+        _popularTvShows = tvShowsData;
         notifyListeners();
       },
     );
