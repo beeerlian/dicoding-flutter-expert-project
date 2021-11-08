@@ -69,6 +69,7 @@ final testMovieCache = MovieTable(
   posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
   title: 'Spider-Man',
 );
+
 final testMovieCacheMap = {
   'id': 557,
   'overview':

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
-import 'package:ditonton/features/tvshow/domain/repositories/tvshow_repository.dart';
 import 'package:ditonton/features/tvshow/domain/usecases/search_tvshow.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+
 import '../../../../helpers/test_helper.mocks.dart';
 
 void main() {

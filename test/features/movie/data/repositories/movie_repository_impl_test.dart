@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/features/movies/data/models/genre_model.dart';
 import 'package:ditonton/features/movies/data/models/movie_detail_model.dart';
 import 'package:ditonton/features/movies/data/models/movie_model.dart';
 import 'package:ditonton/features/movies/data/repositories/movie_repository_impl.dart';
-import 'package:ditonton/common/exception.dart';
-import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/features/movies/domain/entities/movie.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -121,20 +121,7 @@ void main() {
       verify(mockRemoteDataSource.getNowPlayingMovies());
       expect(result, equals(Left(ServerFailure(''))));
     });
-
-    test(
-        'should return connection failure when the device is not connected to internet',
-        () async {
-      // arrange
-      when(mockRemoteDataSource.getNowPlayingMovies())
-          .thenThrow(SocketException('Failed to connect to the network'));
-      // act
-      final result = await repository.getNowPlayingMovies();
-      // assert
-      verify(mockRemoteDataSource.getNowPlayingMovies());
-      expect(result,
-          equals(Left(ConnectionFailure('Failed to connect to the network'))));
-    });
+  
   });
 
   group('Popular Movies', () {

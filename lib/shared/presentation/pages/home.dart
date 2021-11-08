@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:ditonton/features/movies/presentation/pages/about_page.dart';
 import 'package:ditonton/features/movies/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/features/movies/presentation/pages/search_page.dart';
-import 'package:ditonton/features/movies/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/features/movies/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/features/tvshow/presentation/pages/home_tvshow_page.dart';
 import 'package:ditonton/features/tvshow/presentation/pages/tvshow_search_page.dart';
@@ -16,7 +15,6 @@ import 'all_watchlist_page.dart';
 class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
 
-  late PageController _pageController;
   int _currentIndex = 0;
 
   @override
@@ -39,7 +37,6 @@ class _HomeState extends State<Home> {
           ..fetchNowPlayingTvShows()
           ..fetchPopularTvShows()
           ..fetchTopRatedTvShows());
-    widget._pageController = PageController();
   }
 
   final _bottomNavigationItems = [

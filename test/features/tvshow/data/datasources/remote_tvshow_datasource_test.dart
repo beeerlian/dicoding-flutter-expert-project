@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:ditonton/common/exception.dart';
@@ -7,8 +6,8 @@ import 'package:ditonton/features/tvshow/data/datasources/remote_tvshow_datasour
 import 'package:ditonton/features/tvshow/data/models/tvshow_detail_model.dart';
 import 'package:ditonton/features/tvshow/data/models/tvshows_response.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
 
 import '../../../../helpers/test_helper.mocks.dart';
 import '../../../../json_reader.dart';

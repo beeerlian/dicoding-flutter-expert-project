@@ -4,7 +4,6 @@ import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/features/tvshow/data/models/tvshow_detail_model.dart';
 import 'package:ditonton/features/tvshow/data/models/tvshow_model.dart';
 import 'package:ditonton/features/tvshow/data/models/tvshows_response.dart';
-import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
 import 'package:http/http.dart' as http;
 
 abstract class TvShowRemoteDataSource {

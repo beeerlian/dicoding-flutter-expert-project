@@ -1,12 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:ditonton/common/failure.dart';
+import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
 import 'package:ditonton/features/tvshow/domain/usecases/get_now_playing_tvshow.dart';
 import 'package:ditonton/features/tvshow/domain/usecases/get_popular_tvshow.dart';
 import 'package:ditonton/features/tvshow/domain/usecases/get_top_rated_tvshow.dart';
 import 'package:ditonton/features/tvshow/presentation/provider/tvshow_list_notifier.dart';
-import 'package:mockito/annotations.dart';
-import 'package:dartz/dartz.dart';
-import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

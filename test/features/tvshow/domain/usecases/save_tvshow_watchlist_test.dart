@@ -20,7 +20,7 @@ void main() {
   test('should save tvshow to the repository', () async {
     // arrange
     when(mockTvShowRepository.saveTvShowWatchList(testTvShowDetail))
-        .thenAnswer((_) async => Right('Added TvShow to Watchlist'));
+        .thenAnswer((_) async => Right('Added to Watchlist'));
     // act
     final result = await usecase.execute(testTvShowDetail);
     // assert

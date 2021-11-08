@@ -13,7 +13,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../dummy_data/dummy_objects.dart';
-import '../../../movie/presentation/provider/movie_detail_notifier_test.mocks.dart';
 import 'tvshow_detail_notifier_test.mocks.dart';
 
 @GenerateMocks([

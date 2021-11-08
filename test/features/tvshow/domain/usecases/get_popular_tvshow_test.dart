@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
-import 'package:ditonton/features/tvshow/domain/repositories/tvshow_repository.dart';
 import 'package:ditonton/features/tvshow/domain/usecases/get_popular_tvshow.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

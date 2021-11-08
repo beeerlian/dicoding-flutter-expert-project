@@ -1,6 +1,5 @@
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/features/movies/data/datasources/db/database_helper.dart';
-import 'package:ditonton/features/movies/data/models/movie_model.dart';
 import 'package:ditonton/features/movies/data/models/movie_table.dart';
 
 abstract class MovieLocalDataSource {

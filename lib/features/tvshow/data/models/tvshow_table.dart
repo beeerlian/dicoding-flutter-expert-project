@@ -51,6 +51,5 @@ class TvShowTable extends Equatable {
         name: name,
       );
   @override
-  // TODO: implement props
   List<Object?> get props => [id, name, posterPath, overview];
 }

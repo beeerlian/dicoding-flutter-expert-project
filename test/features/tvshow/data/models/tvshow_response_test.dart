@@ -45,17 +45,17 @@ void main() {
       "results": [
         {
           "id": 1,
-          "posterPath": "posterPath",
-          "backdropPath": "backdropPath",
-          "voteAverage": 2.1,
+          "poster_path": "posterPath",
+          "backdrop_path": "backdropPath",
+          "vote_average": 2.1,
           "overview": "overview",
-          "firstAirDate": "firstAirDate",
-          "originCountry": ["originCountry"],
-          "genreIds": [1, 2, 3],
-          "originalLanguage": "originalLanguage",
-          "voteCount": 200,
+          "first_air-date": "firstAirDate",
+          "origin_country": ["originCountry"],
+          "genre_ids": [1, 2, 3],
+          "original_language": "originalLanguage",
+          "vote_count": 200,
           "name": "name",
-          "originalName": "originalName"
+          "original_name": "originalName"
         }
       ]
     };

@@ -1,8 +1,6 @@
-import 'dart:math';
 
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/features/tvshow/domain/entities/tvshow.dart';
-import 'package:ditonton/features/tvshow/domain/usecases/get_top_rated_tvshow.dart';
 import 'package:ditonton/features/tvshow/presentation/pages/top_rated_tvhsow_page.dart';
 import 'package:ditonton/features/tvshow/presentation/provider/toprated_tvshow_notifier.dart';
 import 'package:flutter/material.dart';

@@ -204,7 +204,7 @@ void main() {
       originalName: "originalName",
       overview: "overview",
       popularity: 2.1,
-      posterPath: "posterPath.jpg",
+      posterPath: "posterpath.jpg",
       status: "status",
       tagline: "tagline",
       type: "type",
@@ -337,51 +337,6 @@ void main() {
           result, Left(ConnectionFailure('Failed to connect to the network')));
     });
   });
-
-  group('save watchlist', () {
-    test('should return success message when saving successful', () async {
-      // arrange
-      when(mockLocalDataSource.insertWatchlist(testTvShowTable))
-          .thenAnswer((_) async => 'Added to Watchlist');
-      // act
-      final result = await repository.saveTvShowWatchList(testTvShowDetail);
-      // assert
-      expect(result, Right('Added to Watchlist'));
-    });
-
-    test('should return DatabaseFailure when saving unsuccessful', () async {
-      // arrange
-      when(mockLocalDataSource.insertWatchlist(testTvShowTable))
-          .thenThrow(DatabaseException('Failed to add watchlist'));
-      // act
-      final result = await repository.saveTvShowWatchList(testTvShowDetail);
-      // assert
-      expect(result, Left(DatabaseFailure('Failed to add watchlist')));
-    });
-  });
-
-  group('remove watchlist', () {
-    test('should return success message when remove successful', () async {
-      // arrange
-      when(mockLocalDataSource.removeWatchlist(testTvShowTable))
-          .thenAnswer((_) async => 'Removed from watchlist');
-      // act
-      final result = await repository.removeTvShowWatchList(testTvShowDetail);
-      // assert
-      expect(result, Right('Removed from watchlist'));
-    });
-
-    test('should return DatabaseFailure when remove unsuccessful', () async {
-      // arrange
-      when(mockLocalDataSource.removeWatchlist(testTvShowTable))
-          .thenThrow(DatabaseException('Failed to remove watchlist'));
-      // act
-      final result = await repository.removeTvShowWatchList(testTvShowDetail);
-      // assert
-      expect(result, Left(DatabaseFailure('Failed to remove watchlist')));
-    });
-  });
-
   group('get watchlist status', () {
     test('should return watch status whether data is found', () async {
       // arrange
