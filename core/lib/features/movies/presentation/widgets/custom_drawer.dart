@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CustomDrawer extends StatefulWidget {
   final Widget content;
 
-  CustomDrawer({
+  const CustomDrawer({
     required this.content,
   });
 
