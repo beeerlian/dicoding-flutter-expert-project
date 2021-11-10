@@ -26,11 +26,15 @@ dependencies:
   build_runner: ^2.1.4
   core:
     path: core
+  dartz: ^0.10.0
   flutter:
     sdk: flutter
+  flutter_bloc: ^7.3.3
   get_it: ^7.2.0
   path_provider: ^2.0.2
   provider: ^5.0.0
+  search:
+    path: search
 
 dev_dependencies:
   build_runner: ^2.0.4

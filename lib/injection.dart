@@ -9,7 +9,6 @@ import 'package:core/features/movies/domain/usecases/get_watchlist_movies.dart';
 import 'package:core/features/movies/domain/usecases/get_watchlist_status.dart';
 import 'package:core/features/movies/domain/usecases/remove_watchlist.dart';
 import 'package:core/features/movies/domain/usecases/save_watchlist.dart';
-import 'package:core/features/movies/domain/usecases/search_movies.dart';
 import 'package:core/features/tvshow/domain/repositories/tvshow_repository.dart';
 import 'package:core/features/tvshow/domain/usecases/get_now_playing_tvshow.dart';
 import 'package:core/features/tvshow/domain/usecases/get_popular_tvshow.dart';
@@ -20,11 +19,11 @@ import 'package:core/features/tvshow/domain/usecases/get_tvshow_watchlist_status
 import 'package:core/features/tvshow/domain/usecases/get_watchlist_tvshow.dart';
 import 'package:core/features/tvshow/domain/usecases/remove_tvshow_watchlist.dart';
 import 'package:core/features/tvshow/domain/usecases/save_tvshow_watchlist.dart';
-import 'package:core/features/tvshow/domain/usecases/search_tvshow.dart';
 import 'package:core/utils/network_info.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:search/search.dart';
 
 final locator = GetIt.instance;
 void init() {
