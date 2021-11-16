@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:core/common/encrypt.dart';
 import 'package:core/features/movies/data/models/movie_table.dart';
 import 'package:core/features/tvshow/data/models/tvshow_table.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_sqlcipher/sqflite.dart' as sqf;
 
 class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
@@ -12,9 +13,9 @@ class DatabaseHelper {
 
   factory DatabaseHelper() => _databaseHelper ?? DatabaseHelper._instance();
 
-  static Database? _database;
+  static sqf.Database? _database;
 
-  Future<Database?> get database async {
+  Future<sqf.Database?> get database async {
     if (_database == null) {
       _database = await _initDb();
     }
@@ -26,15 +27,18 @@ class DatabaseHelper {
   static const String _tblWatchlistTvShow = 'tvshow_watchlist';
   static const String _tblCacheTvShow = 'tvshow_cache';
 
-  Future<Database> _initDb() async {
-    final path = await getDatabasesPath();
+  Future<sqf.Database> _initDb() async {
+    final path = await sqf.getDatabasesPath();
     final databasePath = '$path/ditonton.db';
 
-    var db = await openDatabase(databasePath, version: 1, onCreate: _onCreate);
+    var db = await sqf.openDatabase(databasePath,
+        version: 1,
+        onCreate: _onCreate,
+        password: encrypt('Your secure password...'));
     return db;
   }
 
-  void _onCreate(Database db, int version) async {
+  void _onCreate(sqf.Database db, int version) async {
     await db.execute('''
       CREATE TABLE  $_tblWatchlist (
         id INTEGER PRIMARY KEY,
@@ -144,7 +148,7 @@ class DatabaseHelper {
   }
 
   //------------------------- TvShows --------------------------------------------------//
-    Future<void> insertCacheTransactionTvShow(
+  Future<void> insertCacheTransactionTvShow(
       List<TvShowTable> tvShows, String category) async {
     final db = await database;
     db!.transaction((txn) async {
@@ -207,9 +211,9 @@ class DatabaseHelper {
 
   Future<List<Map<String, dynamic>>> getWatchlistTvShows() async {
     final db = await database;
-    final List<Map<String, dynamic>> results = await db!.query(_tblWatchlistTvShow);
+    final List<Map<String, dynamic>> results =
+        await db!.query(_tblWatchlistTvShow);
 
     return results;
   }
-
 }
