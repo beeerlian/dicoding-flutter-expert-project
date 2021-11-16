@@ -17,7 +17,9 @@ dependencies:
     git:
       url: https://github.com/chornthorn/data_connection_checker.git
       ref: master
+  encrypt: ^5.0.1
   equatable: ^2.0.2
+  firebase_crashlytics: ^2.3.0
   flutter:
     sdk: flutter
   flutter_bloc: ^7.3.3
@@ -30,9 +32,7 @@ dependencies:
   provider: ^6.0.0
   search:
     path: ../search
-  # sqflite: ^2.0.0+3
   sqflite_sqlcipher: ^2.1.0
-  encrypt: ^5.0.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0
