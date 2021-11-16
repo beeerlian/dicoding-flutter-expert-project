@@ -27,6 +27,12 @@ import 'package:search/search.dart';
 
 final locator = GetIt.instance;
 void init() {
+  //movies bloc
+  locator..registerFactory(() => SearchMovieBloc(locator()));
+
+  //tvshow bloc
+  locator..registerFactory(() => SearchTvshowBloc(locator()));
+
   //movies provider
   locator.registerFactory(
     () => MovieListNotifier(

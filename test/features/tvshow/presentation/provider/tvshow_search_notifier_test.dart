@@ -1,3 +1,4 @@
+import 'package:core/core.dart';
 import 'package:core/features/tvshow/domain/entities/tvshow.dart';
 import 'package:core/utils/state_enum.dart';
 import 'package:dartz/dartz.dart';
@@ -6,7 +7,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:search/search.dart';
 
-import '../../../movie/presentation/provider/movie_search_notifier_test.mocks.dart';
+import 'tvshow_search_notifier_test.mocks.dart';
 
 @GenerateMocks([SearchTvShow])
 void main() {
