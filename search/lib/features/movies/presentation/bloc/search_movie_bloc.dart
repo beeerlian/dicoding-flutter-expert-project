@@ -11,7 +11,9 @@ part 'search_movie_state.dart';
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   final SearchMovies _searchMovies;
 
-  SearchMovieBloc(this._searchMovies) : super(SearchMovieEmpty());
+  SearchMovieBloc(
+    this._searchMovies,
+  ) : super(SearchMovieEmpty());
 
   @override
   Stream<SearchMovieState> mapEventToState(SearchMovieEvent event) async* {

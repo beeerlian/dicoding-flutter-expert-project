@@ -1,10 +1,9 @@
 import 'dart:developer';
 
 import 'package:about/about.dart';
+import 'package:core/features/movies/presentation/bloc/movie_list_bloc.dart';
 import 'package:core/features/movies/presentation/pages/home_movie_page.dart';
-import 'package:core/features/movies/presentation/provider/movie_list_notifier.dart';
 import 'package:core/features/tvshow/presentation/pages/home_tvshow_page.dart';
-import 'package:core/features/tvshow/presentation/provider/tvshow_list_notifier.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,16 +26,23 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    // Future.microtask(
+    //     () => Provider.of<MovieListNotifier>(context, listen: false)
+    //       ..fetchNowPlayingMovies()
+    //       ..fetchPopularMovies()
+    //       ..fetchTopRatedMovies());
+    // Future.microtask(
+    //     () => Provider.of<TvShowListNotifier>(context, listen: false)
+    //       ..fetchNowPlayingTvShows()
+    //       ..fetchPopularTvShows()
+    //       ..fetchTopRatedTvShows());
+
+    Future.microtask(() =>
+        context.read<NowPlayingMoviesBloc>().add(FetchNowPlayingMovies()));
     Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          ..fetchNowPlayingMovies()
-          ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
+        () => context.read<PopularMoviesBloc>().add(FetchPopularMovies()));
     Future.microtask(
-        () => Provider.of<TvShowListNotifier>(context, listen: false)
-          ..fetchNowPlayingTvShows()
-          ..fetchPopularTvShows()
-          ..fetchTopRatedTvShows());
+        () => context.read<TopRatedMoviesBloc>().add(FetchTopRatedMovies()));
   }
 
   final _bottomNavigationItems = [

@@ -1,8 +1,8 @@
-import 'package:core/features/movies/presentation/provider/popular_movies_notifier.dart';
-import 'package:core/features/movies/presentation/widgets/movie_card_list.dart';
-import 'package:core/utils/state_enum.dart';
+import 'package:core/features/movies/presentation/bloc/popular_movies_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../core.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/popular-movie';
@@ -16,41 +16,41 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+        context.read<AllPopularMoviesBloc>().add(FetchAllPopularMovies()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Popular Movies'),
+        title: const Text('Popular Movies'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: data.movies.length,
-              );
-            } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
-        ),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<AllPopularMoviesBloc, PopularMoviesState>(
+            builder: (context, state) {
+              if (state is PopularMoviesLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is PopularMoviesLoaded) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final movie = state.movies[index];
+                    return MovieCard(movie);
+                  },
+                  itemCount: state.movies.length,
+                );
+              } else if (state is PopularMoviesFailed) {
+                return Center(
+                  key: Key('error_message'),
+                  child: Text(state.message),
+                );
+              } else {
+                return Container();
+              }
+            },
+          )),
     );
   }
 }

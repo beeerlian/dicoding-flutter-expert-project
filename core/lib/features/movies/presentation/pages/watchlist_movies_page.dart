@@ -1,7 +1,7 @@
-import 'package:core/features/movies/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:core/core.dart';
 import 'package:core/features/movies/presentation/widgets/movie_card_list.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
@@ -12,34 +12,42 @@ class WatchlistMoviesPage extends StatefulWidget {
 }
 
 class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
- 
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() =>
+        context.read<AllWatchlistMoviesBloc>().add(FetchAllWatchlistMovies()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Movies Watchlist'),
+        title: const Text('Movies Watchlist'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistMovieNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
-              return Center(
+        child: BlocBuilder<AllWatchlistMoviesBloc, WatchlistMoviesState>(
+          builder: (context, state) {
+            if (state is WatchlistMoviesLoading) {
+              return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (state is WatchlistMoviesLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
+                  final movie = state.movies[index];
                   return MovieCard(movie);
                 },
-                itemCount: data.watchlistMovies.length,
+                itemCount: state.movies.length,
               );
-            } else {
+            } else if (state is WatchlistMoviesFailed) {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),
