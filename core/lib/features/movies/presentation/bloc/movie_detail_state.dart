@@ -61,10 +61,34 @@ class IsAddedToWatchListStatus extends MovieDetailState {
   List<Object?> get props => [status];
 }
 
-class AddedToWatchlistMessage extends MovieDetailState {
+class AddedToWatchlistSuccess extends MovieDetailState {
   String message;
 
-  AddedToWatchlistMessage(this.message);
+  AddedToWatchlistSuccess(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class AddedToWatchlistFailure extends MovieDetailState {
+  String message;
+
+  AddedToWatchlistFailure(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class RemoveWatchlistSuccess extends MovieDetailState {
+  String message;
+
+  RemoveWatchlistSuccess(this.message);
+  @override
+  List<Object?> get props => [message];
+}
+
+class RemoveWatchlistFailure extends MovieDetailState {
+  String message;
+
+  RemoveWatchlistFailure(this.message);
   @override
   List<Object?> get props => [message];
 }

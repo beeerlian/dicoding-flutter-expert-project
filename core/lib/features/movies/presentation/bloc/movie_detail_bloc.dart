@@ -56,7 +56,7 @@ class MovieRecommendationBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   }
 }
 
-class MovieWatchlistBloc extends Bloc<MovieDetailEvent, bool> {
+class MovieWatchlistBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
   final GetWatchListStatus getWatchListStatus;
   final SaveWatchlist saveWatchlist;
   final RemoveWatchlist removeWatchlist;
@@ -65,23 +65,35 @@ class MovieWatchlistBloc extends Bloc<MovieDetailEvent, bool> {
     this.getWatchListStatus,
     this.saveWatchlist,
     this.removeWatchlist,
-  ) : super(false);
+  ) : super(MovieDetailLoading());
 
   @override
-  Stream<bool> mapEventToState(MovieDetailEvent event) async* {
+  Stream<MovieDetailState> mapEventToState(MovieDetailEvent event) async* {
     if (event is LoadMovieWatchlistStatus) {
       final result = await getWatchListStatus.execute(event.id);
-      yield result;
+      yield IsAddedToWatchListStatus(result);
     } else if (event is AddMovieWatchlist) {
       final result = await saveWatchlist.execute(event.movie);
 
+      yield* result.fold((failure) async* {
+        yield AddedToWatchlistFailure(failure.message);
+      }, (successMessage) async* {
+        yield AddedToWatchlistSuccess(successMessage);
+      });
+
       final loadResult = await getWatchListStatus.execute(event.movie.id);
-      yield loadResult;
+      yield IsAddedToWatchListStatus(loadResult);
     } else if (event is RemoveMovieWatchlist) {
       final result = await removeWatchlist.execute(event.movie);
 
+      yield* result.fold((failure) async* {
+        yield RemoveWatchlistFailure(failure.message);
+      }, (successMessage) async* {
+        yield RemoveWatchlistSuccess(successMessage);
+      });
+
       final loadResult = await getWatchListStatus.execute(event.movie.id);
-      yield loadResult;
+      yield IsAddedToWatchListStatus(loadResult);
     }
   }
 }

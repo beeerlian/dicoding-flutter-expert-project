@@ -94,24 +94,56 @@ class DetailContent extends StatelessWidget {
                               movie.title,
                               style: kHeading5,
                             ),
-                            BlocBuilder<MovieWatchlistBloc, bool>(
-                                builder: (context, state) {
+                            BlocConsumer<MovieWatchlistBloc, MovieDetailState>(
+                                listener: (context, state) {
+                              if (state is AddedToWatchlistSuccess) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.message)));
+                              } else if (state is AddedToWatchlistFailure) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(state.message),
+                                      );
+                                    });
+                              } else if (state is RemoveWatchlistSuccess) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.message)));
+                              } else if (state is RemoveWatchlistFailure) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Text(state.message),
+                                      );
+                                    });
+                              }
+                            }, builder: (context, state) {
+                              bool status = false;
+                              if (state is IsAddedToWatchListStatus) {
+                                status = state.status;
+                              }
                               return ElevatedButton(
                                 onPressed: () async {
-                                  if (!state) {
-                                    context
-                                        .read<MovieWatchlistBloc>()
-                                        .add(AddMovieWatchlist(movie));
-                                  } else {
-                                    context
-                                        .read<MovieWatchlistBloc>()
-                                        .add(RemoveMovieWatchlist(movie));
+                                  if (state is IsAddedToWatchListStatus) {
+                                    if (!state.status) {
+                                      context
+                                          .read<MovieWatchlistBloc>()
+                                          .add(AddMovieWatchlist(movie));
+                                    } else {
+                                      context
+                                          .read<MovieWatchlistBloc>()
+                                          .add(RemoveMovieWatchlist(movie));
+                                    }
                                   }
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    state ? Icon(Icons.check) : Icon(Icons.add),
+                                    status
+                                        ? Icon(Icons.check)
+                                        : Icon(Icons.add),
                                     Text('Watchlist'),
                                   ],
                                 ),

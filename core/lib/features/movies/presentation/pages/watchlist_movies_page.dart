@@ -1,8 +1,6 @@
 import 'package:core/core.dart';
-import 'package:core/features/movies/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-movie';
@@ -43,7 +41,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
               );
             } else if (state is WatchlistMoviesFailed) {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(state.message),
               );
             } else {

@@ -9,48 +9,6 @@ import 'package:meta/meta.dart';
 part 'movie_list_event.dart';
 part 'movie_list_state.dart';
 
-class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
-  final GetNowPlayingMovies _getNowPlayingMovies;
-  final GetTopRatedMovies _getTopRatedMovies;
-  final GetPopularMovies _getPopularMovies;
-
-  MovieListBloc(this._getNowPlayingMovies, this._getTopRatedMovies,
-      this._getPopularMovies)
-      : super(MovieListInitial());
-
-  @override
-  Stream<MovieListState> mapEventToState(MovieListEvent event) async* {
-    if (event is FetchNowPlayingMovies) {
-      yield NowPlayingMovieListLoading();
-
-      final result = await _getNowPlayingMovies.execute();
-      result.fold((failure) async* {
-        yield NowPlayingMovieListHasError(failure.message);
-      }, (moviesData) async* {
-        yield NowPlayingMovieListLoaded(moviesData);
-      });
-    } else if (event is FetchPopularMovies) {
-      yield PopularMovieListLoading();
-
-      final result = await _getPopularMovies.execute();
-      result.fold((failure) async* {
-        yield PopularMovieListHasError(failure.message);
-      }, (moviesData) async* {
-        yield PopularMovieListLoaded(moviesData);
-      });
-    } else if (event is FetchTopRatedMovies) {
-      yield TopRatedMovieListLoading();
-
-      final result = await _getTopRatedMovies.execute();
-      result.fold((failure) async* {
-        yield TopRatedMovieListHasError(failure.message);
-      }, (moviesData) async* {
-        yield TopRatedMovieListLoaded(moviesData);
-      });
-    }
-  }
-}
-
 class NowPlayingMoviesBloc extends Bloc<MovieListEvent, MovieListState> {
   GetNowPlayingMovies _getNowPlayingMovies;
   NowPlayingMoviesBloc(this._getNowPlayingMovies)
