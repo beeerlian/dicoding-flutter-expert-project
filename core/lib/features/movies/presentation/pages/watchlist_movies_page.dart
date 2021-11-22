@@ -11,13 +11,6 @@ class WatchlistMoviesPage extends StatefulWidget {
 
 class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> {
   @override
-  void initState() {
-    super.initState();
-    Future.microtask(() =>
-        context.read<AllWatchlistMoviesBloc>().add(FetchAllWatchlistMovies()));
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:about/about.dart';
 import 'package:core/features/movies/presentation/bloc/movie_list_bloc.dart';
 import 'package:core/features/movies/presentation/pages/home_movie_page.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_list_bloc.dart';
 import 'package:core/features/tvshow/presentation/pages/home_tvshow_page.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -26,26 +27,22 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // Future.microtask(
-    //     () => Provider.of<MovieListNotifier>(context, listen: false)
-    //       ..fetchNowPlayingMovies()
-    //       ..fetchPopularMovies()
-    //       ..fetchTopRatedMovies());
-    // Future.microtask(
-    //     () => Provider.of<TvShowListNotifier>(context, listen: false)
-    //       ..fetchNowPlayingTvShows()
-    //       ..fetchPopularTvShows()
-    //       ..fetchTopRatedTvShows());
-
     Future.microtask(() =>
         context.read<NowPlayingMoviesBloc>().add(FetchNowPlayingMovies()));
     Future.microtask(
         () => context.read<PopularMoviesBloc>().add(FetchPopularMovies()));
     Future.microtask(
         () => context.read<TopRatedMoviesBloc>().add(FetchTopRatedMovies()));
+
+    Future.microtask(() =>
+        context.read<NowPlayingTvShowBloc>().add(FetchNowPlayingTvShows()));
+    Future.microtask(
+        () => context.read<PopularTvShowBloc>().add(FetchPopularTvShows()));
+    Future.microtask(
+        () => context.read<TopRatedTvShowBloc>().add(FetchTopRatedTvShows()));
   }
 
-  final _bottomNavigationItems = [
+  final _bottomNavigationItems = const [
     BottomNavigationBarItem(icon: Icon(Icons.movie), label: "Movie"),
     BottomNavigationBarItem(
       icon: Icon(Icons.tv),
@@ -74,8 +71,8 @@ class _HomeState extends State<Home> {
           onPressed: () {
             _scaffoldkey.currentState!.openDrawer();
           },
-          icon: Icon(Icons.menu)),
-      title: Text('Ditonton'),
+          icon: const Icon(Icons.menu)),
+      title: const Text('Ditonton'),
       actions: [
         IconButton(
           onPressed: () {
@@ -96,7 +93,7 @@ class _HomeState extends State<Home> {
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage('assets/circle-g.png'),
             ),
@@ -104,15 +101,15 @@ class _HomeState extends State<Home> {
             accountEmail: Text('ditonton@dicoding.com'),
           ),
           ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Movies'),
+            leading: const Icon(Icons.movie),
+            title: const Text('Movies'),
             onTap: () {
               Navigator.pop(context);
             },
           ),
           ListTile(
-            leading: Icon(Icons.save_alt),
-            title: Text('Watchlist'),
+            leading: const Icon(Icons.save_alt),
+            title: const Text('Watchlist'),
             onTap: () {
               Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
             },
@@ -121,8 +118,8 @@ class _HomeState extends State<Home> {
             onTap: () {
               Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
             },
-            leading: Icon(Icons.info_outline),
-            title: Text('About'),
+            leading: const Icon(Icons.info_outline),
+            title: const Text('About'),
           ),
         ],
       ),

@@ -1,9 +1,7 @@
-
-import 'package:core/features/tvshow/presentation/provider/watchlist_tvshow_notifier.dart';
+import 'package:core/features/tvshow/presentation/bloc/watchlist_tvshow_bloc.dart';
 import 'package:core/features/tvshow/presentation/widgets/tvshow_card_list.dart';
-import 'package:core/utils/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistTvShowsPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-tvShow';
@@ -13,34 +11,35 @@ class WatchlistTvShowsPage extends StatefulWidget {
 }
 
 class _WatchlistTvShowsPageState extends State<WatchlistTvShowsPage> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tv Show Watchlist'),
+        title: const Text('Tv Show Watchlist'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistTvShowNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
-              return Center(
+        child: BlocBuilder<AllWatchlistTvShowsBloc, WatchlistTvShowsState>(
+          builder: (context, state) {
+            if (state is WatchlistTvShowsLoading) {
+              return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (state is WatchlistTvShowsLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tvShow = data.watchlistTvShows[index];
+                  final tvShow = state.tvShow[index];
                   return TvShowCard(tvShow);
                 },
-                itemCount: data.watchlistTvShows.length,
+                itemCount: state.tvShow.length,
+              );
+            } else if (state is WatchlistTvShowsFailed) {
+              return Center(
+                key: const Key('error_message'),
+                child: Text(state.message),
               );
             } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
+              return Container();
             }
           },
         ),

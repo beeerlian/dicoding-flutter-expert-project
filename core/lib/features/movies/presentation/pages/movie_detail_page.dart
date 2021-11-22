@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
-import 'package:core/features/movies/presentation/bloc/movie_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -9,7 +8,7 @@ class MovieDetailPage extends StatefulWidget {
   static const ROUTE_NAME = '/movie-detail';
 
   final int id;
-  const MovieDetailPage({required this.id});
+  MovieDetailPage({required this.id});
 
   @override
   _MovieDetailPageState createState() => _MovieDetailPageState();
@@ -65,7 +64,7 @@ class DetailContent extends StatelessWidget {
           placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
@@ -142,9 +141,9 @@ class DetailContent extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     status
-                                        ? Icon(Icons.check)
-                                        : Icon(Icons.add),
-                                    Text('Watchlist'),
+                                        ? const Icon(Icons.check)
+                                        : const Icon(Icons.add),
+                                    const Text('Watchlist'),
                                   ],
                                 ),
                               );
@@ -160,7 +159,7 @@ class DetailContent extends StatelessWidget {
                                 RatingBarIndicator(
                                   rating: movie.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: kMikadoYellow,
                                   ),
@@ -169,7 +168,7 @@ class DetailContent extends StatelessWidget {
                                 Text('${movie.voteAverage}')
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Overview',
                               style: kHeading6,
@@ -177,7 +176,7 @@ class DetailContent extends StatelessWidget {
                             Text(
                               movie.overview,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -185,7 +184,7 @@ class DetailContent extends StatelessWidget {
                             BlocBuilder<MovieRecommendationBloc,
                                 MovieDetailState>(builder: (context, state) {
                               if (state is MovieRecommendationsLoading) {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               } else if (state is MovieRecommendationsFailure) {
@@ -209,14 +208,15 @@ class DetailContent extends StatelessWidget {
                                             );
                                           },
                                           child: ClipRRect(
-                                            borderRadius: BorderRadius.all(
+                                            borderRadius:
+                                                const BorderRadius.all(
                                               Radius.circular(8),
                                             ),
                                             child: CachedNetworkImage(
                                               imageUrl:
                                                   'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                               placeholder: (context, url) =>
-                                                  Center(
+                                                  const Center(
                                                 child:
                                                     CircularProgressIndicator(),
                                               ),
@@ -262,7 +262,7 @@ class DetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },

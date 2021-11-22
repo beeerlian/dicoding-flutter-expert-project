@@ -1,7 +1,7 @@
+import 'package:core/core.dart';
 import 'package:core/features/movies/presentation/pages/watchlist_movies_page.dart';
-import 'package:core/features/movies/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:core/features/tvshow/presentation/bloc/watchlist_tvshow_bloc.dart';
 import 'package:core/features/tvshow/presentation/pages/watchlist_tvshow_page.dart';
-import 'package:core/features/tvshow/presentation/provider/watchlist_tvshow_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,11 +25,10 @@ class _WatchlistPageState extends State<WatchlistPage> {
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<WatchlistMovieNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
-    Future.microtask(() =>
-        Provider.of<WatchlistTvShowNotifier>(context, listen: false)
-            .fetchWatchlistTvShows());
+        context.read<AllWatchlistMoviesBloc>().add(FetchAllWatchlistMovies()));
+    Future.microtask(() => context
+        .read<AllWatchlistTvShowsBloc>()
+        .add(FetchAllWatchlistTvShows()));
     _pageController =
         PageController(initialPage: _currentIndex, keepPage: true);
   }

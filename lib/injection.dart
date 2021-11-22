@@ -21,6 +21,11 @@ import 'package:core/features/tvshow/domain/usecases/get_tvshow_watchlist_status
 import 'package:core/features/tvshow/domain/usecases/get_watchlist_tvshow.dart';
 import 'package:core/features/tvshow/domain/usecases/remove_tvshow_watchlist.dart';
 import 'package:core/features/tvshow/domain/usecases/save_tvshow_watchlist.dart';
+import 'package:core/features/tvshow/presentation/bloc/popular_tvshow_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/top_rated_tvshow_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_detail_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_list_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/watchlist_tvshow_bloc.dart';
 import 'package:core/utils/network_info.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:get_it/get_it.dart';
@@ -43,6 +48,16 @@ void init() {
   locator.registerFactory(() => AllWatchlistMoviesBloc(locator()));
   //tvshow bloc
   locator.registerFactory(() => SearchTvshowBloc(locator()));
+  locator.registerFactory(() => NowPlayingTvShowBloc(locator()));
+  locator.registerFactory(() => PopularTvShowBloc(locator()));
+  locator.registerFactory(() => TvShowRecommendationBloc(locator()));
+  locator.registerFactory(() => TopRatedTvShowBloc(locator()));
+  locator.registerFactory(() => TvShowDetailBloc(locator()));
+  locator.registerFactory(
+      () => TvShowWatchlistBloc(locator(), locator(), locator()));
+  locator.registerFactory(() => AllPopularTvShowsBloc(locator()));
+  locator.registerFactory(() => AllTopRatedTvShowsBloc(locator()));
+  locator.registerFactory(() => AllWatchlistTvShowsBloc(locator()));
 
   //movies provider
   locator.registerFactory(

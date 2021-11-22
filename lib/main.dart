@@ -2,6 +2,11 @@ import 'package:about/about.dart';
 import 'package:core/core.dart';
 import 'package:core/features/movies/presentation/bloc/movie_detail_bloc.dart';
 import 'package:core/features/movies/presentation/bloc/movie_list_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/popular_tvshow_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/top_rated_tvshow_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_detail_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_list_bloc.dart';
+import 'package:core/features/tvshow/presentation/bloc/watchlist_tvshow_bloc.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,7 +75,16 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<AllTopRatedMoviesBloc>()),
         BlocProvider(create: (_) => di.locator<AllWatchlistMoviesBloc>()),
         //-----------tvshow bloc provider------------------------
-        BlocProvider(create: (_) => di.locator<SearchTvshowBloc>())
+        BlocProvider(create: (_) => di.locator<SearchTvshowBloc>()),
+        BlocProvider(create: (_) => di.locator<NowPlayingTvShowBloc>()),
+        BlocProvider(create: (_) => di.locator<PopularTvShowBloc>()),
+        BlocProvider(create: (_) => di.locator<TopRatedTvShowBloc>()),
+        BlocProvider(create: (_) => di.locator<TvShowRecommendationBloc>()),
+        BlocProvider(create: (_) => di.locator<TvShowDetailBloc>()),
+        BlocProvider(create: (_) => di.locator<TvShowWatchlistBloc>()),
+        BlocProvider(create: (_) => di.locator<AllPopularTvShowsBloc>()),
+        BlocProvider(create: (_) => di.locator<AllTopRatedTvShowsBloc>()),
+        BlocProvider(create: (_) => di.locator<AllWatchlistTvShowsBloc>()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

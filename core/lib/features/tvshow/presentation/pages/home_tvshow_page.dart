@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:core/core.dart';
 import 'package:core/features/tvshow/domain/entities/tvshow.dart';
+import 'package:core/features/tvshow/presentation/bloc/tvshow_list_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeTvShowPage extends StatefulWidget {
   const HomeTvShowPage({Key? key}) : super(key: key);
@@ -31,14 +32,14 @@ class _HomeTvShowPageState extends State<HomeTvShowPage> {
               'Now Playing',
               style: kHeading6,
             ),
-            Consumer<TvShowListNotifier>(builder: (context, data, child) {
-              final state = data.nowPlayingState;
-              if (state == RequestState.Loading) {
-                return Center(
+            BlocBuilder<NowPlayingTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is NowPlayingTvShowListLoading) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state == RequestState.Loaded) {
-                return TvShowList(data.nowPlayingTvShows);
+              } else if (state is NowPlayingTvShowListLoaded) {
+                return TvShowList(state.tvShows);
               } else {
                 return Text('Failed');
               }
@@ -48,14 +49,14 @@ class _HomeTvShowPageState extends State<HomeTvShowPage> {
               onTap: () =>
                   Navigator.pushNamed(context, PopularTvShowsPage.ROUTE_NAME),
             ),
-            Consumer<TvShowListNotifier>(builder: (context, data, child) {
-              final state = data.popularTvShowsState;
-              if (state == RequestState.Loading) {
-                return Center(
+            BlocBuilder<TopRatedTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is TopRatedTvShowListLoading) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state == RequestState.Loaded) {
-                return TvShowList(data.popularTvShows);
+              } else if (state is TopRatedTvShowListLoaded) {
+                return TvShowList(state.tvShows);
               } else {
                 return Text('Failed');
               }
@@ -65,16 +66,16 @@ class _HomeTvShowPageState extends State<HomeTvShowPage> {
               onTap: () =>
                   Navigator.pushNamed(context, TopRatedTvShowsPage.ROUTE_NAME),
             ),
-            Consumer<TvShowListNotifier>(builder: (context, data, child) {
-              final state = data.topRatedTvShowsState;
-              if (state == RequestState.Loading) {
-                return Center(
+            BlocBuilder<PopularTvShowBloc, TvShowListState>(
+                builder: (context, state) {
+              if (state is PopularTvShowListLoading) {
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (state == RequestState.Loaded) {
-                return TvShowList(data.topRatedTvShows);
+              } else if (state is PopularTvShowListLoaded) {
+                return TvShowList(state.tvShows);
               } else {
-                return Text('Failed');
+                return const Text('Failed');
               }
             }),
           ],
@@ -96,7 +97,7 @@ class _HomeTvShowPageState extends State<HomeTvShowPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
+              children: const [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
           ),
         ),
@@ -132,7 +133,7 @@ class TvShowList extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${tvshow.posterPath}',
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
