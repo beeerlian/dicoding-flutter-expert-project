@@ -5,7 +5,6 @@ import 'package:core/features/movies/presentation/bloc/movie_list_bloc.dart';
 import 'package:core/features/movies/presentation/pages/home_movie_page.dart';
 import 'package:core/features/tvshow/presentation/bloc/tvshow_list_bloc.dart';
 import 'package:core/features/tvshow/presentation/pages/home_tvshow_page.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:search/search.dart';
@@ -76,7 +75,7 @@ class _HomeState extends State<Home> {
       actions: [
         IconButton(
           onPressed: () {
-            FirebaseCrashlytics.instance.crash();
+            // FirebaseCrashlytics.instance.crash();
             var route = widget._currentIndex == 0
                 ? MovieSearchPage.ROUTE_NAME
                 : TvShowSearchPage.ROUTE_NAME;
